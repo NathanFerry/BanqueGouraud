@@ -23,3 +23,14 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `is_answered` BOOLEAN NOT NULL DEFAULT 0,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- NEW: Create the 'transactions' table for the user dashboard.
+-- This table will track all loans and repayments for each user.
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL,
+  `transaction_type` ENUM('loan', 'repayment') NOT NULL,
+  `amount` DECIMAL(10, 2) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
