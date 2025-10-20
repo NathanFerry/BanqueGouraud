@@ -8,6 +8,7 @@ CREATE OR REPLACE TABLE users (
     is_admin BOOLEAN DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+ALTER TABLE `users` ADD `profile_picture` VARCHAR(255) NULL DEFAULT NULL AFTER `is_admin`;
 
 -- Insert a default admin user for demonstration purposes.
 -- This makes it easier to test login functionality from the start.
@@ -34,3 +35,4 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
+ALTER TABLE `transactions` ADD `status` ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending' AFTER `amount`;
